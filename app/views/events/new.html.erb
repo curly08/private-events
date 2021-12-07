@@ -6,6 +6,8 @@
   <%= f.label :date, 'Date:' %>
   <%= f.datetime_local_field :date %><br>
   <%= f.label :location, 'Location:' %>
-  <%= f.text_field :location %>
+  <%= f.text_field :location %><br>
   <%= f.submit 'Create!' %>
 <% end %>
+
+<%= link_to 'Cancel', root_path %>
