@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_08_203727) do
+ActiveRecord::Schema.define(version: 2021_12_07_185816) do
 
   create_table "event_attendings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -31,15 +31,6 @@ ActiveRecord::Schema.define(version: 2021_12_08_203727) do
     t.index ["creator_id"], name: "index_events_on_creator_id"
   end
 
-  create_table "invites", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "invited_event_id"
-    t.integer "invitee_id"
-    t.index ["invited_event_id"], name: "index_invites_on_invited_event_id"
-    t.index ["invitee_id"], name: "index_invites_on_invitee_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -55,6 +46,4 @@ ActiveRecord::Schema.define(version: 2021_12_08_203727) do
   add_foreign_key "event_attendings", "events", column: "attended_event_id"
   add_foreign_key "event_attendings", "users", column: "event_attendee_id"
   add_foreign_key "events", "users", column: "creator_id"
-  add_foreign_key "invites", "events", column: "invited_event_id"
-  add_foreign_key "invites", "users", column: "invitee_id"
 end
