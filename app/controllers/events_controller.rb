@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show]
-  before_action :authenticate_user!, only: %i[show new create]
+  before_action :set_event, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: :index
 
   def index
     @events = Event.all
@@ -23,6 +23,28 @@ class EventsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def edit; end
+
+  def update
+    respond_to do |format|
+      if @event.update(event_params)
+        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.json { render :show, status: :ok, location: @event }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @event.destroy
+    respond_to do |format|
+      format.html { redirect_to current_user, notice: 'Event was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
