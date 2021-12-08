@@ -1,6 +1,7 @@
 class EventAttendingsController < ApplicationController
   before_action :find_event
-  before_action :authenticate_user!, only: %i[create]
+  before_action :find_event_attending, only: [:destroy]
+  before_action :authenticate_user!, only: [:create]
 
   def create
     if already_attending?
@@ -11,10 +12,23 @@ class EventAttendingsController < ApplicationController
     redirect_to @event
   end
 
+  def destroy
+    if !already_attending?
+      flash[:notice] = 'Cannot unattend.'
+    else
+      @event_attending.destroy
+    end
+    redirect_to @event
+  end
+
   private
 
   def find_event
     @event = Event.find(params[:event_id])
+  end
+
+  def find_event_attending
+    @event_attending = @event.event_attendings.find(params[:id])
   end
 
   def already_attending?

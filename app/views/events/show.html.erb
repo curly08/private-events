@@ -8,8 +8,12 @@
   <p><%= attendee.email %></p>
 <% end %>
 
-<%= button_to 'Click to record your attendance.',
-              event_event_attendings_path(@event), method: :post %>
+<% pre_attendance = @event.event_attendings.find { |event_attending| event_attending.event_attendee_id == current_user.id } %>
+<% if pre_attendance %>
+  <%= button_to 'Unattend', event_event_attending_path(@event, pre_attendance), method: :delete %>
+<% else %>
+  <%= button_to 'Attend', event_event_attendings_path(@event), method: :post %>
+<% end %>
 
 <%= link_to 'Edit', edit_event_path %>
 <%= link_to 'Delete', @event, method: :delete, data: { confirm: "Are you sure you want to delete this event?" } %>

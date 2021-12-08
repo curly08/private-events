@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :events do
-    resources :event_attendings, only: [:create]
+    resources :event_attendings, only: %i[create destroy]
   end
   root 'events#index'
   resources :users, only: [:show]
