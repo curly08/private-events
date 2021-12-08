@@ -1,0 +1,7 @@
+<h4>Invite a guest using their email.</h4>
+
+<%= form_with model: @invite do |f| %>
+  <%= f.label :email, "Guest's Email:" %>
+  <%= f.text_field :email %>
+  <%= f.submit 'Invite!' %>
+<% end %>
