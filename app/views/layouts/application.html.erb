@@ -13,6 +13,19 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <nav>
+      <ul>
+        <li><%= link_to 'Home', root_path %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to 'Create an Event', new_event_path %></li>
+          <li><%= link_to 'My Events', current_user %></li>
+          <li style="float:right"><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li style="float:right"><%= link_to 'Sign In', new_user_session_path %></li>
+          <li style="float:right"><%= link_to 'Sign Up', new_user_registration_path %></li>
+        <% end %>
+      </ul>
+    </nav>
     <%= yield %>
   </body>
 </html>
